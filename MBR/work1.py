@@ -15,10 +15,10 @@ inner_EBR_List = []
 initialed = False
 
 Partition_Types = {
-    "00": "Free",
+    # "00": "Free",
     "01": "FAT12",
     "04": "FAT16",
-    "05": "EBR",
+    # "05": "EBR",
     "07": "NTFS",
     "0B": "CHS FAT32",
     "0C": "LBA FAT32"
@@ -37,7 +37,7 @@ with open(file_name,"rb") as mbr:
         entry = partition_List.pop(0)
         boot = entry[:1]
         Partition_type = entry[4:5].hex()
-        if Partition_type == '07':
+        if Partition_type in Partition_Types:
             start = unpack('<I', entry[8:12])
             size = unpack('<I', entry[12:16])
             Partition_size = size[0] * sector
